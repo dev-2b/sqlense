@@ -37,14 +37,15 @@ Das Projekt ist in mehrere aufeinander aufbauende Phasen unterteilt. Um die anf�
 
 ## Architektur und Projektstruktur
 
+```text
 sqlense/
 ├── Cargo.toml         # Verwaltung der Dependencies (Abhängigkeiten)
-├── README.md          # Projektbeschreibung und Roadmap
-├── test_db/           # Ordner für lokale SQLite Test-Datenbank
+├── README.md          # Unsere Projektbeschreibung und Roadmap
+├── test_db/           # Ordner für unsere lokale SQLite Test-Datenbank
 │   └── dummy.db       
 └── src/
-    ├── main.rs        # Einstiegspunkt
+    ├── main.rs        # Einstiegspunkt: Startet die App, delegiert Aufgaben
     ├── cli.rs         # Verarbeitung der Konsolenbefehle/Argumente
-    ├── db.rs          # Alles rund um `rusqlite` (Verbindung, Queries)
-    ├── models.rs      # Rust-Structs, die unsere Datenbank-Entitäten abbilden
-    └── ui.rs          # Vorerst: Simple formatierte Konsolenausgabe. Später: Das TUI.
+    ├── db.rs          # DAO-Schicht: Alles rund um `rusqlite` (Verbindung, Queries)
+    ├── models.rs      # DTOs: Rust-Structs für unsere Datenbank-Entitäten
+    └── ui.rs          # Ausgabe: Formatierte Konsolenausgabe (später Ratatui-TUI)
