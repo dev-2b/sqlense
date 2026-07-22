@@ -12,7 +12,7 @@ Der Fokus liegt auf sauberem Code, einem schrittweisen Architekturaufbau und dem
 Das Projekt ist in mehrere aufeinander aufbauende Phasen unterteilt. Um die anfängliche Komplexität gering zu halten, startet das Tool als reines Kommandozeilenwerkzeug (CLI) und wird später um ein Text User Interface (TUI) erweitert.
 
 ### Phase 1: Fundament & Datenbankverbindung (CLI)
-- [ ] Setup des Rust-Projekts und Einbindung von `rusqlite`.
+- [x] Setup des Rust-Projekts und Einbindung von `rusqlite`.
 - [ ] Aufbau einer sicheren Verbindung zu einer lokalen SQLite-Datenbankdatei.
 - [ ] Abfangen und sauberes Behandeln von Verbindungsfehlern (Error Handling in Rust).
 
