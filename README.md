@@ -34,3 +34,17 @@ Das Projekt ist in mehrere aufeinander aufbauende Phasen unterteilt. Um die anf�
 - [ ] Refactoring der bisherigen Codebasis zur sauberen Trennung von Datenbank-Logik und Anzeige.
 - [ ] Einbindung des Crates `ratatui`.
 - [ ] Bau einer interaktiven Terminal-Oberfläche zur Navigation durch Tabellen und Daten.
+
+## Architektur und Projektstruktur
+
+sqlense/
+├── Cargo.toml         # Verwaltung der Dependencies (Abhängigkeiten)
+├── README.md          # Projektbeschreibung und Roadmap
+├── test_db/           # Ordner für lokale SQLite Test-Datenbank
+│   └── dummy.db       
+└── src/
+    ├── main.rs        # Einstiegspunkt
+    ├── cli.rs         # Verarbeitung der Konsolenbefehle/Argumente
+    ├── db.rs          # Alles rund um `rusqlite` (Verbindung, Queries)
+    ├── models.rs      # Rust-Structs, die unsere Datenbank-Entitäten abbilden
+    └── ui.rs          # Vorerst: Simple formatierte Konsolenausgabe. Später: Das TUI.
