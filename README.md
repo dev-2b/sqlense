@@ -13,8 +13,8 @@ Das Projekt ist in mehrere aufeinander aufbauende Phasen unterteilt. Um die anfÃ
 
 ### Phase 1: Fundament & Datenbankverbindung (CLI)
 - [x] Setup des Rust-Projekts und Einbindung von `rusqlite`.
-- [ ] Aufbau einer sicheren Verbindung zu einer lokalen SQLite-Datenbankdatei.
-- [ ] Abfangen und sauberes Behandeln von Verbindungsfehlern (Error Handling in Rust).
+- [x] Aufbau einer sicheren Verbindung zu einer lokalen SQLite-Datenbankdatei.
+- [x] Abfangen und sauberes Behandeln von Verbindungsfehlern (Error Handling in Rust).
 
 ### Phase 2: Der Schema-Visualisierer (Fokus: DDL)
 - [ ] Auslesen der Metadaten aus der Datenbank (Welche Tabellen existieren?).
