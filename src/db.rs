@@ -1,8 +1,27 @@
+use crate::models::TableInfo;
 use anyhow::Result as AnyResult;
 use rusqlite::Connection;
 pub fn establish_connection() -> AnyResult<Connection> {
     let conn = Connection::open("test_db/dummy.db")?;
     Ok(conn)
+}
+
+pub fn get_tables(conn: &Connection) -> AnyResult<Vec<TableInfo>> {
+    let mut stmt = conn.prepare(
+        "SELECT name FROM sqlite_schema WHERE type='table' AND name NOT LIKE 'sqlite_%';",
+    )?;
+    let table_iter = stmt.query_map([], |row| {
+        let table_name: String = row.get(0)?;
+
+        // Hier bauen wir direkt unser DTO zusammen!
+        Ok(TableInfo { name: table_name })
+    })?;
+    let mut tables = Vec::new();
+    for table in table_iter {
+        tables.push(table?);
+    }
+
+    Ok(tables)
 }
 pub fn create_test_table(conn: &Connection) -> AnyResult<()> {
     conn.execute_batch(
