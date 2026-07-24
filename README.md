@@ -19,7 +19,7 @@ Das Projekt ist in mehrere aufeinander aufbauende Phasen unterteilt. Um die anfÃ
 ### Phase 2: Der Schema-Visualisierer (Fokus: DDL)
 - [x] Auslesen der Metadaten aus der Datenbank (Welche Tabellen existieren?).
 - [x] Auslesen der Spaltenstruktur einer gewÃ¤hlten Tabelle (Datentypen, Primary Keys).
-- [ ] Formatierte Ausgabe der Tabellenstrukturen im Terminal (z.B. mit dem Crate `comfy-table`).
+- [x] Formatierte Ausgabe der Tabellenstrukturen im Terminal (z.B. mit dem Crate `comfy-table`).
 
 ### Phase 3: Datenanzeige & Basis-Interaktion (Fokus: DQL/DML)
 - [ ] Implementierung eines einfachen `SELECT *`-Befehls zum Anzeigen von Tabelleninhalten.
