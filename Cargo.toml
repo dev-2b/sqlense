@@ -6,3 +6,4 @@ edition = "2024"
 [dependencies]
 rusqlite = { version = "0.31.0", features = ["bundled"] }
 anyhow = "1.0"
+comfy-table = "7.2.2"
