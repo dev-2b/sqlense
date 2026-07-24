@@ -2,6 +2,7 @@ use anyhow::Result;
 
 mod db;
 mod models; // hier "bekannt geben" damit es mit use crate::models::TableInfo; in db.rs funktioniert
+mod ui;
 
 fn main() -> Result<()> {
     // 1. Verbindung aufbauen. Wenn es fehlschlägt, bricht der ?-Operator
@@ -15,10 +16,9 @@ fn main() -> Result<()> {
 
     // 3. Tabellen auslesen und ausgeben
     let tables = db::get_tables(&conn)?;
-    for table in tables {
-        println!("Table: {}", table.name);
-        println!("{:?}", table.columns);
-    }
+
+    // Anzeige im Terminal. nur referenz übergeben, da wir die Daten nicht verändern wollen.
+    ui::print_tables(&tables);
 
     // Wenn wir hier ankommen, lief alles fehlerfrei.
     Ok(())
