@@ -1,6 +1,7 @@
 use anyhow::Result;
 
 mod db;
+mod models; // hier "bekannt geben" damit es mit use crate::models::TableInfo; in db.rs funktioniert
 
 fn main() -> Result<()> {
     // 1. Verbindung aufbauen. Wenn es fehlschlägt, bricht der ?-Operator
@@ -11,6 +12,12 @@ fn main() -> Result<()> {
     // 2. Tabellen erstellen. Auch hier: Bei Fehler bricht ? sicher ab.
     db::create_test_table(&conn)?;
     println!("Successfully initialized database schema.");
+
+    // 3. Tabellen auslesen und ausgeben
+    let tables = db::get_tables(&conn)?;
+    for table in tables {
+        println!("Table: {}", table.name);
+    }
 
     // Wenn wir hier ankommen, lief alles fehlerfrei.
     Ok(())
