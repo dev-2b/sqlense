@@ -17,7 +17,7 @@ Das Projekt ist in mehrere aufeinander aufbauende Phasen unterteilt. Um die anfÃ
 - [x] Abfangen und sauberes Behandeln von Verbindungsfehlern (Error Handling in Rust).
 
 ### Phase 2: Der Schema-Visualisierer (Fokus: DDL)
-- [ ] Auslesen der Metadaten aus der Datenbank (Welche Tabellen existieren?).
+- [x] Auslesen der Metadaten aus der Datenbank (Welche Tabellen existieren?).
 - [ ] Auslesen der Spaltenstruktur einer gewÃ¤hlten Tabelle (Datentypen, Primary Keys).
 - [ ] Formatierte Ausgabe der Tabellenstrukturen im Terminal (z.B. mit dem Crate `comfy-table`).
 
