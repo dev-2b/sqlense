@@ -17,6 +17,7 @@ fn main() -> Result<()> {
     let tables = db::get_tables(&conn)?;
     for table in tables {
         println!("Table: {}", table.name);
+        println!("{:?}", table.columns);
     }
 
     // Wenn wir hier ankommen, lief alles fehlerfrei.

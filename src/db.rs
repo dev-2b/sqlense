@@ -1,4 +1,4 @@
-use crate::models::TableInfo;
+use crate::models::{ColumnInfo, TableInfo};
 use anyhow::Result as AnyResult;
 use rusqlite::Connection;
 pub fn establish_connection() -> AnyResult<Connection> {
@@ -10,18 +10,50 @@ pub fn get_tables(conn: &Connection) -> AnyResult<Vec<TableInfo>> {
     let mut stmt = conn.prepare(
         "SELECT name FROM sqlite_schema WHERE type='table' AND name NOT LIKE 'sqlite_%';",
     )?;
-    let table_iter = stmt.query_map([], |row| {
-        let table_name: String = row.get(0)?;
+    let table_name_iter = stmt.query_map([], |row| {
+        let name: String = row.get(0)?;
 
-        // Hier bauen wir direkt unser DTO zusammen!
-        Ok(TableInfo { name: table_name })
+        Ok(name)
     })?;
     let mut tables = Vec::new();
-    for table in table_iter {
-        tables.push(table?);
+    for name_result in table_name_iter {
+        let table_name = name_result?;
+
+        // Hier rufen wir unsere neue Hilfsfunktion auf!
+        let columns = get_columns(conn, &table_name)?;
+
+        // Wir bauen das fertige DTO zusammen
+        tables.push(TableInfo {
+            name: table_name,
+            columns,
+        });
     }
 
     Ok(tables)
+}
+
+// Hilfsfunktion: Holt alle Spalten für einen bestimmten Tabellennamen
+pub fn get_columns(conn: &Connection, table_name: &str) -> AnyResult<Vec<ColumnInfo>> {
+    // Da PRAGMA keine Platzhalter erlaubt, bauen wir den String mit format! um dynamisch den Tabellennamen einzufügen. Wir müssen hier aufpassen, dass der Tabellenname nicht von außen kommt, sonst hätten wir ein SQL-Injection-Problem.
+    let query = format!("PRAGMA table_info('{}');", table_name);
+    let mut stmt = conn.prepare(&query)?;
+
+    let col_iter = stmt.query_map([], |row| {
+        Ok(ColumnInfo {
+            // Wir können über den Index zugreifen (PRAGMA liefert feste Spalten zurück)
+            name: row.get(1)?,        // Spalte 'name'
+            data_type: row.get(2)?,   // Spalte 'type'
+            not_null: row.get(3)?,    // Spalte 'notnull' (wird automatisch zu bool)
+            primary_key: row.get(5)?, // Spalte 'pk' (wird automatisch zu bool)
+        })
+    })?;
+
+    let mut columns = Vec::new();
+    for col in col_iter {
+        columns.push(col?);
+    }
+
+    Ok(columns)
 }
 pub fn create_test_table(conn: &Connection) -> AnyResult<()> {
     conn.execute_batch(
